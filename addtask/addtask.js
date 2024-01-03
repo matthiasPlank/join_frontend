@@ -37,6 +37,8 @@ async function createTask(status) {
   let newTask = createNewTask(inputValues, assigned , subtasks, subtaskStatus, status); 
   tasks.push(newTask);
 
+  console.log(newTask);
+
   setFieldsToStandard();
   resetPriority();
   setBoardToRemoteStorage();

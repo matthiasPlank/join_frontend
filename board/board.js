@@ -77,7 +77,9 @@ async function clearBoardFromTaskWithoutKanban(){
 async function getBoardFromRemoteStorage() {
   try {
     const response = await getItem(remoteStorageKeyTest);
-    return JSON.parse(response);
+    const  todosFromBackend = await getTasksFromBackend(); 
+    console.log(todosFromBackend);
+    return JSON.parse(todosFromBackend);
   } catch (error) {
     console.warn(error);
     return [];
