@@ -79,7 +79,8 @@ async function getBoardFromRemoteStorage() {
     const response = await getItem(remoteStorageKeyTest);
     const  todosFromBackend = await getTasksFromBackend(); 
     console.log(todosFromBackend);
-    return JSON.parse(todosFromBackend);
+    //console.log(JSON.parse(todosFromBackend))
+    return todosFromBackend;
   } catch (error) {
     console.warn(error);
     return [];

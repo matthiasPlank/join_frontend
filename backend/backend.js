@@ -8,13 +8,26 @@ async function getTasksFromBackend() {
         .then(response => response.json())
         .then(res => {
             console.log(res)
-            if (res.data) { 
-                return res.data.value;
+            if (res) { 
+                return res;
             } 
             throw `Could not find data.`;
     });
-    //const resp = await fetch(url)
-    console.log(resp);
+    return resp;
+}
 
-    return "Test";
+async function setTasksToBackend(task) {
+    /*
+    if (!key || !value) {
+        throw "Key and value are required.";
+    }
+    const payload = { key, value, token: STORAGE_TOKEN };
+    */   
+    console.log("Task for Backend"); 
+    console.log(task); 
+
+    /*
+    return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload)})
+    .then(res => res.json());
+    */
 }
