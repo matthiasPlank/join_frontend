@@ -38,7 +38,10 @@ async function loadBoard() {
  */
 async function setBoardToRemoteStorage() {
   try {
-    await setItem(remoteStorageKeyTest, JSON.stringify(tasks));
+    //await setItem(remoteStorageKeyTest, JSON.stringify(tasks));
+    tasks.forEach(task => {
+      setTasksToBackend(task); 
+    });
   } catch (error) {
     console.warn(error);
   }

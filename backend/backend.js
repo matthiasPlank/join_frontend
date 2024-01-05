@@ -24,7 +24,8 @@ async function setTasksToBackend(task) {
     const payload = { key, value, token: STORAGE_TOKEN };
     */   
     console.log("Task for Backend"); 
-    console.log(task); 
+    console.log(JSON.stringify(task)); 
+    //console.log(JSON.parse(task)); 
 
     /*
     return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload)})
