@@ -39,9 +39,12 @@ function generateTodoHTML(element) {
  * @returns HTML contacts template for a given task
  */
 function generateContactsForTodoHTML(element){
+
     let HTMLTemplate = ""; 
     for (let i = 0; i < element['assigned'].length && element['assigned'][i] != null; i++) {
         let contactFirstName = element['assigned'][i]['firstName'];
+
+
         let contactFirstNameLetter = contactFirstName.charAt(0);
         let contactLastName = element['assigned'][i]['lastName'];
         let contactLastNameLetter = contactLastName.charAt(0);
@@ -54,6 +57,27 @@ function generateContactsForTodoHTML(element){
         }
     }
     return HTMLTemplate; 
+
+    // NEW Version with parse to Objects
+    /*
+    let HTMLTemplate = ""; 
+    const contactsJSONString = element['assigned'].replace(/'/g, '"');
+    const contacts = JSON.parse(contactsJSONString);
+    for (let i = 0; i < contacts.length && contacts[i] != null; i++) {
+        let contactFirstName =contacts[i]['firstName'];
+        let contactFirstNameLetter = contactFirstName.charAt(0);
+        let contactLastName = contacts[i]['lastName'];
+        let contactLastNameLetter = contactLastName.charAt(0);
+        let contactBackground =contacts[i]['bgIconColor'];
+
+        if (i < 3) {
+            HTMLTemplate += `<div class="contactIcon" style="background-color: ${contactBackground};">${contactFirstNameLetter}${contactLastNameLetter}</div>`;
+        } else {
+            remainingCount++;
+        }
+    }
+    return HTMLTemplate; 
+    */
 }
 
 /**
