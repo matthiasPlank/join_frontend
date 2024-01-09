@@ -92,7 +92,11 @@ function setContactIconBackground(id){
  * Load contacts from backend/remotestorage.
  */
 async function getContactsFromRemoteStorage(){
-    let resp =  await getItem(remoteStorageKey);
+
+    /* 
+    LOAD CONTACTS FROM DJANGO BACKEND 
+    */
+    let resp =  await getContactsFromBackend();
     contacts = JSON.parse(resp); 
 }
 

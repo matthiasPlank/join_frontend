@@ -16,12 +16,17 @@ const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
  * @returns {String} 
  */
 async function setItem(key, value) {
+
+    /*
     if (!key || !value) {
         throw "Key and value are required.";
     }
     const payload = { key, value, token: STORAGE_TOKEN };
     return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload)})
     .then(res => res.json());
+    */
+
+    return "{}"
 }
 
 /**
@@ -30,10 +35,13 @@ async function setItem(key, value) {
  * @returns {String} - Gives the data that was made from the backend.
  */
 async function getItem(key) {
+    /*
     const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
     return fetch(url).then(res => res.json()).then(res => {
         if (res.data) { 
             return res.data.value;
         } throw `Could not find data with key "${key}".`;
     });
+    */
+    return "{}"
 }

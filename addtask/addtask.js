@@ -36,12 +36,13 @@ async function createTask(status) {
 
   let newTask = createNewTask(inputValues, assigned , subtasks, subtaskStatus, status); 
   tasks.push(newTask);
-
+  
+  console.log("NEW CREATED TASK:");
   console.log(newTask);
-
+ 
   setFieldsToStandard();
   resetPriority();
-  setBoardToRemoteStorage();
+  setTasksToBackend(newTask)
   taskAddedReport();
 
 }
@@ -59,7 +60,7 @@ function createNewTask(inputValues, assigned , subtasks, subtaskStatus, kanban){
    * @type {Object}
    */
     let newTask = {
-      id: generateUniqueId(),
+      /* id: generateUniqueId(), */
       title: inputValues[0],
       description:  inputValues[1],
       category:  inputValues[2],
@@ -193,16 +194,6 @@ function showContacts() {
   let contacts = document.getElementById('assignedCheckboxContainer');
   if (contacts.classList.contains('border-bottom') ? contacts.classList.remove('border-bottom') : contacts.classList.add('border-bottom') ) ;
 
-  /*
-  let assignedContacts = document.getElementById('showAssignedContacts');
-  if ( assignedContacts.classList.contains('d-none')){
-      assignedContacts.classList.remove('d-none') ;
-      renderSelectedContacts(); 
-  } 
-  else {  
-      assignedContacts.classList.add('d-none') 
-  }
-  */
 }
 
 /**

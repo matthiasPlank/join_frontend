@@ -1,5 +1,6 @@
 [
     {
+        "id": "1", 
         "firstName": "Matthias",
         "lastName": "Plank",
         "email": "mathias.plank@gmx.at",
@@ -7,13 +8,15 @@
         "bgIconColor": "#0faabb"
     },
     {
+        "id": "2", 
         "firstName": "Anton",
         "lastName": "Mayer",
         "email": "anton.mayer@gmx.com",
         "tel": "+4366412345678",
         "bgIconColor": "#7f3dc2"
-    },
+    }, 
     {
+        "id": "3", 
         "firstName": "Benedikt",
         "lastName": "Ziegler",
         "email": "benedikt.ziegler@gmail.de",
@@ -21,6 +24,7 @@
         "bgIconColor": "#45e3a8"
     },
     {
+        "id": "4", 
         "firstName": "Anja",
         "lastName": "Schulz",
         "email": "anja.schulz@gmail.com",
@@ -28,6 +32,7 @@
         "bgIconColor": "#08f9d4"
     },
     {
+        "id": "5", 
         "firstName": "John",
         "lastName": "Doe",
         "email": "john.doe@example.com",
@@ -35,6 +40,7 @@
         "bgIconColor": "#9c7b1e"
     },
     {
+        "id": "6", 
         "firstName": "Jane",
         "lastName": "Smith",
         "email": "jane.smith@example.com",
@@ -42,59 +48,11 @@
         "bgIconColor": "#f75c82"
     },
     {
+        "id": "7", 
         "firstName": "David",
         "lastName": "Johnson",
         "email": "david.johnson@example.com",
         "tel": "+1234567890",
         "bgIconColor": "#5ae8c1"
-    },
-    {
-        "firstName": "Emily",
-        "lastName": "Davis",
-        "email": "emily.davis@example.com",
-        "tel": "+1234567890",
-        "bgIconColor": "#db592f"
-    },
-    {
-        "firstName": "Michael",
-        "lastName": "Wilson",
-        "email": "michael.wilson@example.com",
-        "tel": "+1234567890",
-        "bgIconColor": "#3275e4"
-    },
-    {
-        "firstName": "Olivia",
-        "lastName": "Anderson",
-        "email": "olivia.anderson@example.com",
-        "tel": "+1234567890",
-        "bgIconColor": "#e692b7"
-    },
-    {
-        "firstName": "William",
-        "lastName": "Clark",
-        "email": "william.clark@example.com",
-        "tel": "+1234567890",
-        "bgIconColor": "#76adf4"
-    },
-    {
-        "firstName": "Sophia",
-        "lastName": "Lee",
-        "email": "sophia.lee@example.com",
-        "tel": "+1234567890",
-        "bgIconColor": "#2e891c"
-    },
-    {
-        "firstName": "James",
-        "lastName": "Taylor",
-        "email": "james.taylor@example.com",
-        "tel": "+1234567890",
-        "bgIconColor": "#ffed7d"
-    },
-    {
-        "firstName": "Ava",
-        "lastName": "White",
-        "email": "james.taylor@example.com",
-        "tel": "+1234567890",
-        "bgIconColor": "#ffed7d"
     }
 ]
