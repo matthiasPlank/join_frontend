@@ -1,5 +1,6 @@
 
 
+/* ********************** BEGINN TASKS **************************** */
 
 async function getTasksFromBackend() {
 
@@ -27,8 +28,54 @@ async function setTasksToBackend(task) {
     return fetch(url, { method: 'POST', body: JSON.stringify(task)})
     .then(res => res.json());
 }
+/* ********************** END TASKS **************************** */
+/* ********************** BEGINN CONTACTS **************************** */
 
-
+/**
+ * Loads all contacts from Backened
+ * @returns conctacts[]
+ */
 async function getContactsFromBackend(){
-    return '[{"id":"1","firstName":"Matthias","lastName":"Plank","email":"mathias.plank@gmx.at","tel":"+4366412345678","bgIconColor":"#0faabb"},{"id":"2","firstName":"Anton","lastName":"Mayer","email":"anton.mayer@gmx.com","tel":"+4366412345678","bgIconColor":"#7f3dc2"},{"id":"3","firstName":"Benedikt","lastName":"Ziegler","email":"benedikt.ziegler@gmail.de","tel":"+4366412345678","bgIconColor":"#45e3a8"},{"id":"4","firstName":"Anja","lastName":"Schulz","email":"anja.schulz@gmail.com","tel":"+4366412345678","bgIconColor":"#08f9d4"},{"id":"5","firstName":"John","lastName":"Doe","email":"john.doe@example.com","tel":"+1234567890","bgIconColor":"#9c7b1e"},{"id":"6","firstName":"Jane","lastName":"Smith","email":"jane.smith@example.com","tel":"+1234567890","bgIconColor":"#f75c82"},{"id":"7","firstName":"David","lastName":"Johnson","email":"david.johnson@example.com","tel":"+1234567890","bgIconColor":"#5ae8c1"}]'
+    const url = 'http://127.0.0.1:8000/contacts/';
+
+    const resp = await fetch(url)
+    .then(response => response.json())
+    .then(res => {
+        console.log("Contacts from Backend"); 
+        console.log(res)
+        if (res) { 
+            return res;
+        } 
+        throw `Could not find data.`;
+    });
+    return resp;
 }
+
+/**
+ * Creats a new contact
+ * @param {JSONString} contact 
+ * @returns created contact as JSONString
+ */
+async function addContactToBackend(contact) {
+
+    const url = 'http://127.0.0.1:8000/contacts/';
+
+    console.log("Contact for Backend"); 
+    console.log(JSON.stringify(contact));
+
+    return await fetch(url, { method: 'POST', body: JSON.stringify(contact)})
+    .then(res => res.json());
+}
+
+
+
+async function deleteContactFromBackend(contactID) {
+
+    const url = 'http://127.0.0.1:8000/contacts/' +  contactID['id'];
+    console.log("Delete: "  + contactID['id'])
+
+
+}
+/* ********************** END CONTACTS **************************** */
+
+

@@ -96,8 +96,9 @@ async function getContactsFromRemoteStorage(){
     /* 
     LOAD CONTACTS FROM DJANGO BACKEND 
     */
-    let resp =  await getContactsFromBackend();
-    contacts = JSON.parse(resp); 
+    contacts =  await getContactsFromBackend();
+    //contacts = JSON.parse(resp); 
+    console.log(contacts);
 }
 
 /**
@@ -227,9 +228,10 @@ function addContact(){
     if ( lastName == undefined ? lastName = "" : ""); 
     let bgColor = '#' + Math.floor(Math.random()*16777215).toString(16);
 
-    contacts.push({ "firstName": `${firstName}`,"lastName": `${lastName}`,"email": `${email}`,"tel": `${phone}`,"bgIconColor": `${bgColor}`}); 
+    let newContact = [{"firstName": `${firstName}`,"lastName": `${lastName}`,"email": `${email}`,"tel": `${phone}`,"bgIconColor": `${bgColor}`}]; 
+    contacts.push(newContact[0]); 
 
-    setContactsToRemoteStorage(); 
+    setContactsToRemoteStorage(newContact[0]); 
     closeContactOverlay(); 
     renderContactList(); 
 }
@@ -237,8 +239,8 @@ function addContact(){
 /**
  * Saving the contacts in the remoter storage/backend.
  */
-function setContactsToRemoteStorage(){
-    let resp = setItem(remoteStorageKey , JSON.stringify(contacts)); 
+function setContactsToRemoteStorage(newContact){
+    let resp = addContactToBackend(newContact);   
 }
 
 /**
@@ -293,9 +295,9 @@ function saveEditedContact(index){
  * Delete a contact in edit mode.
  * @param {int} index - Position of the contact in the array
  */
-function deleteEditedContact(index){
+async function deleteEditedContact(index){
+    await deleteContactFromBackend(contacts[index]); 
     contacts.splice(index, 1); 
-    setContactsToRemoteStorage(); 
     closeContactOverlay(); 
     renderContactList(); 
     location.reload();
