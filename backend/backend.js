@@ -68,14 +68,27 @@ async function addContactToBackend(contact) {
 }
 
 
-
 async function deleteContactFromBackend(contactID) {
 
     const url = 'http://127.0.0.1:8000/contacts/' +  contactID['id'];
     console.log("Delete: "  + contactID['id'])
 
-
 }
 /* ********************** END CONTACTS **************************** */
 
+
+async function loginBackend(email, password){
+
+    const url = 'http://127.0.0.1:8000/api-token-auth/'
+    requestData = {
+        "email": email,
+        "password" : password
+    }
+    await fetch(url, {  method: 'POST',  
+                        headers: { 'Content-Type': 'application/json'} ,
+                        body: JSON.stringify(requestData)
+                    })
+        .then(res => res.json());
+    console.log("login Django")
+}
 

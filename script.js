@@ -324,4 +324,22 @@ function loadRememberMe(){
   }
 }
 
+async function guestLogin(){
+  let email = "guest@guest.at"; 
+  let password  = "joinGuestUser!"; 
+  try{
+    await loginBackend(email, password); 
+  }
+  catch{
+    console.log("Login in Failed");
+  }
+}
+
+
+function userLogin(){
+
+  
+}
+
+
 

@@ -11,6 +11,7 @@
     <link rel="icon" type="image/x-icon" href="./img/join-logo.png">
 
     <script src="./remoteStorage/remoteStorage.js"></script>
+    <script src="./backend/backend.js"></script>
     <script src="./script.js"></script>
 
     <title>Join</title>
@@ -61,8 +62,8 @@
                         </div>
                     </div>
                     <div class="flex gap mobile-column">
-                        <button type="button" onclick=" login();openPage('log-in')" class="log-btn">Log in</button>
-                        <button type="button" onclick="openPage('summary')" class="guest-log-btn">Guest Log in</button>
+                        <button type="button" onclick="userLogin()" class="log-btn">Log in</button>
+                        <button type="button" onclick="guestLogin()" class="guest-log-btn">Guest Log in</button>
                     </div>
                 </div>
             </div>
