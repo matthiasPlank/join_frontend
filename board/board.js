@@ -199,11 +199,12 @@ function closeTask() {
  * Deletes the current Task
  * @param {string} id -  ID of the Task.
  */
-function deleteTask(id) {
+async function deleteTask(id) {
   const index = tasks.findIndex(task => task.id === id);
   if (index !== -1) {
+    await deleteTaskromBackend(id)
     tasks.splice(index, 1);
-    setBoardToRemoteStorage();
+    //setBoardToRemoteStorage();
     closeTask();
     updateHTML();
   }
@@ -275,7 +276,12 @@ function saveChanges() {
     tasks[currentEditingIndex].kanban = status;
   }
   updateAssignedContacts();
-  setBoardToRemoteStorage();
+  //setBoardToRemoteStorage();
+  console.log("TASK TO CHANGE: "); 
+  console.log(tasks[currentEditingIndex]); 
+  //setTasksToBackend(tasks[currentEditingIndex]); 
+  updateTasksToBackend(tasks[currentEditingIndex]); 
+
   updateHTML();
   closeTask();
   savedChangesReport();
@@ -331,7 +337,7 @@ function allowDrop(ev) {
  */
 function moveTo(kanban) {
   currentDraggedElement['kanban'] = kanban;
-  setBoardToRemoteStorage();
+  updateTasksToBackend(currentDraggedElement); 
   updateHTML();
 }
 

@@ -1,5 +1,3 @@
-
-
 /* ********************** BEGINN TASKS **************************** */
 
 async function getTasksFromBackend() {
@@ -8,6 +6,7 @@ async function getTasksFromBackend() {
     const resp = await fetch(url)
         .then(response => response.json())
         .then(res => {
+            console.log("TASKS:")
             console.log(res)
             if (res) {
                 return res;
@@ -19,7 +18,6 @@ async function getTasksFromBackend() {
 
 async function setTasksToBackend(task) {
 
-
     const url = 'http://127.0.0.1:8000/tasks/';
 
     console.log("Task for Backend");
@@ -28,6 +26,36 @@ async function setTasksToBackend(task) {
     return fetch(url, { method: 'POST', body: JSON.stringify(task) })
         .then(res => res.json());
 }
+
+async function updateTasksToBackend(task) {
+
+    const url = 'http://127.0.0.1:8000/tasks/' + task['id'] + "/";
+
+    console.log("Updated Task for Backend");
+    console.log(JSON.stringify(task));
+
+    return fetch(url, { method: 'PATCH',
+                        headers: {'Content-Type': 'application/json'} , 
+                        body: JSON.stringify(task) })
+        .then(res => res.json());
+}
+
+async function deleteTaskromBackend(taskID) {
+
+    const url = 'http://127.0.0.1:8000/tasks/' + taskID + "/";
+    console.log("Delete: " + taskID ); 
+
+    await fetch(url, {method: 'DELETE'})
+        .then(res => {
+                console.log(res); 
+                return true; 
+            }) 
+        .catch((error) => {
+            console.error(error);
+            return false; 
+        })
+}
+
 /* ********************** END TASKS **************************** */
 /* ********************** BEGINN CONTACTS **************************** */
 
@@ -64,6 +92,16 @@ async function addContactToBackend(contact) {
     console.log(JSON.stringify(contact));
 
     return await fetch(url, { method: 'POST', body: JSON.stringify(contact) })
+        .then(res => res.json());
+}
+
+async function updateContactToBackend(contact) {
+
+    const url = 'http://127.0.0.1:8000/contacts/' + contact['id'] + "/";
+
+    return fetch(url, { method: 'PATCH',
+                        headers: {'Content-Type': 'application/json'} , 
+                        body: JSON.stringify(contact) })
         .then(res => res.json());
 }
 

@@ -198,6 +198,7 @@ function generateContactsForOpenTaskHTML(element){
  * @returns HTML Template
  */
 function generateSubtaksForOpenTaskHTML(element){
+    
     let template = ""; 
     for (let i = 0; i < element['subtasks'].length; i++) {
         let subtask = element['subtasks'][i];

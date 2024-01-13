@@ -284,7 +284,7 @@ function saveEditedContact(index){
     contacts[index].lastName = lastName; 
     contacts[index].email = document.getElementById("contactOverlayEmail").value ; 
     contacts[index].tel = document.getElementById("contactOverlayPhone").value ; 
-    setContactsToRemoteStorage(); 
+    updateContactToBackend(contacts[index]); 
     closeContactOverlay(); 
     openContactDetails(index);
     renderContactList(); 
