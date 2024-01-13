@@ -8,13 +8,14 @@
     <link rel="icon" type="image/x-icon" href="../img/join-logo.png">
     <script src="../templates/include.js"></script>
     <script src="../remoteStorage/remoteStorage.js"></script>
+    <script src="../backend/backend.js"></script>
     <script src="./summary.js"></script>
     
     <link rel="stylesheet" href="./summary.css">
     <link rel="stylesheet" href="../templates/desktop_template.css">
   
 </head>
-<body onload="includeHTML(),loadTasks()" id="summary">
+<body onload="includeHTML(),loadTasks(); checkAuth()" id="summary">
 
     <div w3-include-html="../templates/desktop_template.html"></div>
 

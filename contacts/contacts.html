@@ -18,7 +18,7 @@
     <script src="../backend/backend.js"></script>
     <script src="../contacts/contacts.js"></script>
 </head>
-<body id="body" onload="includeHTML(), loadContactList()">
+<body id="body" onload="includeHTML(), loadContactList(); checkAuth()">
     <div w3-include-html="../templates/desktop_template.html"></div>
     <div id="addNewTask" class="dsp-none">
         <div class="addNewTaskBackground customScroll">

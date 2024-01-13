@@ -7,7 +7,7 @@ let mobileWelcomeShowed = false ;
  * Initialization and loading of the data from the backend. Called when opening the summary.
  */
 async function loadTasks(){
-    await getTasksFromLocalStorage(); 
+    tasks = await getBoardFromRemoteStorage(); 
     checkMobileLogin(); 
     setItemValues(); 
     LogInCheck();
@@ -98,3 +98,19 @@ function checkMobileLogin(){
       }, "2000");
   } 
 }
+
+/**
+ * Loads the tasks from the remote storage
+ */
+async function getBoardFromRemoteStorage() {
+  try {
+    const  todosFromBackend = await getTasksFromBackend(); 
+    console.log(todosFromBackend);
+    //console.log(JSON.parse(todosFromBackend))
+    return todosFromBackend;
+  } catch (error) {
+    console.warn(error);
+    return [];
+  }
+}
+

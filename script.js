@@ -329,6 +329,9 @@ async function guestLogin(){
   let password  = "joinGuestUser!"; 
   try{
     await loginBackend(email, password); 
+    if(localStorage.getItem("token") != null && localStorage.getItem("token") != ""){
+      openPage("summary");
+    }
   }
   catch{
     console.log("Login in Failed");

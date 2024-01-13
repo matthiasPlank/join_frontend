@@ -22,7 +22,7 @@
     <link rel="icon" type="image/x-icon" href="../img/join-logo.png">
 </head>
 
-<body onload="includeHTML(); loadBoard()" id="board">
+<body onload="includeHTML(); loadBoard(); checkAuth()" id="board">
     <div w3-include-html="../templates/desktop_template.html"></div>
 
     <div id="addNewTask" class="dsp-none" onclick="clearAddTaskForm()">
