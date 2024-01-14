@@ -215,16 +215,14 @@ document.addEventListener('DOMContentLoaded', function () {
  * Register a new user.
  */
   async function register() {
-    if ( ( nameInput.value === '' || email.value === '' || password.value === '') || !isValidEmail(email.value) || isUserAlreadyRegistered(nameInput.value, email.value)){
+
+    if ( ( nameInput.value === '' || email.value === '' || password.value === '') || !isValidEmail(email.value)){
       return;
     }
     registerBtn.disabled = true;
-    user.push({
-      name: nameInput.value,
-      email: email.value,
-      password: password.value,
-    });
-    await setItem('user', JSON.stringify(user));
+   
+    registerBackend(email.value, password.value , nameInput.value); 
+
     resetForm();
     loadUser();
     back();
@@ -296,6 +294,7 @@ function removeItemsFromLocalStorage(){
     localStorage.removeItem('email');
     localStorage.removeItem('password');
     localStorage.removeItem('rememberMe');
+    localStorage.removeItem("username");
 }
 
 /**
@@ -324,12 +323,13 @@ function loadRememberMe(){
   }
 }
 
+
 async function guestLogin(){
   let email = "guest@guest.at"; 
   let password  = "joinGuestUser!"; 
   try{
     await loginBackend(email, password); 
-    if(localStorage.getItem("token") != null && localStorage.getItem("token") != ""){
+    if(localStorage.getItem("token") != null && localStorage.getItem("token") != ""  & localStorage.getItem("token") != "undefined"){
       openPage("summary");
     }
   }
@@ -338,10 +338,23 @@ async function guestLogin(){
   }
 }
 
-
-function userLogin(){
-
-  
+async function userLogin(){
+  let email = document.getElementById('log-in-email').value;
+  let password = document.getElementById('log-in-pw').value;
+  let rememberMeCheckbox = document.getElementById('remember-me-checkbox');
+  try{
+    await loginBackend(email, password); 
+    if(localStorage.getItem("token") != null && localStorage.getItem("token") != "" && localStorage.getItem("token") != "undefined"){
+      //document.getElementById("wrongCredentials").classList.add("dsp-none"); 
+      openPage("summary");
+    }
+    else{
+      document.getElementById("wrongCredentials").classList.remove("dsp-none"); 
+    }
+  }
+  catch{
+    console.log("Login in Failed");
+  }
 }
 
 

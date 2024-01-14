@@ -140,18 +140,45 @@ async function loginBackend(email, password) {
         .then(res => res.json())
         .then(obj => {
             localStorage.setItem("token", obj.token);
+            localStorage.setItem("username", obj.username); 
+            localStorage.setItem('email', obj.email);
             return obj;
         })
         .catch((error) => {
             localStorage.removeItem("token");
+            localStorage.removeItem("username");
+            localStorage.removeItem("email");
+            console.error(error);
+        });
+}
+
+async function registerBackend(email, password, username) {
+
+    const url = 'http://127.0.0.1:8000/register/'
+    requestData = {
+        "email": email,
+        "password": password, 
+        "username": username
+    }
+    await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestData)
+    })
+    .then(res => res.json())
+        .then(obj => {
+            console.log(obj); 
+            //return obj;
+        })
+        .catch((error) => {
             console.error(error);
         });
 }
 
 
 async function checkAuth() {
-    console.log("CHECK AUTH"); 
     const token = localStorage.getItem("token"); 
+    const email = localStorage.getItem("token"); 
     if(token != null && token != ""){
 
     }

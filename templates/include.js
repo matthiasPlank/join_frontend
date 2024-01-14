@@ -34,8 +34,7 @@ function includeHTML() {
    * Function for logging out of the JOIN system.
    */
   function logOut() {
-    localStorage.removeItem('username');
-  
+    
     let logOut = document.getElementById('logOut');
   
     if (logOut.classList.contains('d-none')) {
@@ -43,6 +42,13 @@ function includeHTML() {
     } else {
       logOut.classList.add('d-none');
     }
+  }
+
+  function removeToken(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('login');
+    localStorage.removeItem("username");
+    localStorage.removeItem("email");
   }
 
 /**
