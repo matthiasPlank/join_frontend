@@ -178,9 +178,36 @@ async function registerBackend(email, password, username) {
 
 async function checkAuth() {
     const token = localStorage.getItem("token"); 
-    const email = localStorage.getItem("token"); 
+    const email = localStorage.getItem("email"); 
     if(token != null && token != ""){
 
+        const url = "http://127.0.0.1:8000/checkToken/";
+        requestData = {
+            "email": email,
+            "token" : token
+        }
+        await fetch(url, {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json' },
+            body: JSON.stringify(requestData)
+        })
+        .then(async res => {
+            console.log("AUTH RESPONSE:"); 
+            result = await res.text(); 
+            console.log(result); 
+            if(result == "True"){
+                return true; 
+            }
+            else{
+                window.location.href = '/index.html';
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+            window.location.href = '/index.html';
+        })
+      
     }
     else{
         window.location.href = '/index.html';
