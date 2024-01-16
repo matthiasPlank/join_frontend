@@ -36,10 +36,7 @@ async function createTask(status) {
 
   let newTask = createNewTask(inputValues, assigned , subtasks, subtaskStatus, status); 
   tasks.push(newTask);
-  
-  console.log("NEW CREATED TASK:");
-  console.log(newTask);
- 
+
   setFieldsToStandard();
   resetPriority();
   setTasksToBackend(newTask)
