@@ -1,3 +1,10 @@
+
+let backendURL = 'http://127.0.0.1:8000'; 
+//backendURL = 'https://matthiasplank.pythonanywhere.com/'; 
+
+
+let tokenForHeader  =  "Token " + localStorage.getItem('token') ;
+
 /* ********************** BEGINN TASKS **************************** */
 
 /**
@@ -6,8 +13,11 @@
  */
 async function getTasksFromBackend() {
 
-    const url = 'http://127.0.0.1:8000/tasks/';
-    const resp = await fetch(url)
+    const url = backendURL + '/tasks/';
+    const resp = await fetch(url , 
+                        { method: 'GET',
+                        headers: { 'Authorization' : tokenForHeader}
+                        })
         .then(response => response.json())
         .then(res => {
             if (res) {
@@ -25,8 +35,8 @@ async function getTasksFromBackend() {
  */
 async function setTasksToBackend(task) {
 
-    const url = 'http://127.0.0.1:8000/tasks/';
-    return fetch(url, { method: 'POST', body: JSON.stringify(task) })
+    const url = backendURL + '/tasks/';
+    return fetch(url, { method: 'POST',  headers: { 'Authorization' : tokenForHeader} , body: JSON.stringify(task) })
         .then(res => res.json());
 }
 
@@ -37,9 +47,9 @@ async function setTasksToBackend(task) {
  */
 async function updateTasksToBackend(task) {
 
-    const url = 'http://127.0.0.1:8000/tasks/' + task['id'] + "/";
+    const url = backendURL + '/tasks/' + task['id'] + "/";
     return fetch(url, { method: 'PATCH',
-                        headers: {'Content-Type': 'application/json'} , 
+                        headers: {'Content-Type': 'application/json' , 'Authorization' : tokenForHeader} , 
                         body: JSON.stringify(task) })
         .then(res => res.json());
 }
@@ -50,9 +60,9 @@ async function updateTasksToBackend(task) {
  */
 async function deleteTaskromBackend(taskID) {
 
-    const url = 'http://127.0.0.1:8000/tasks/' + taskID + "/";
+    const url = backendURL + '/tasks/' + taskID + "/";
    
-    await fetch(url, {method: 'DELETE'})
+    await fetch(url, {method: 'DELETE' , headers: { 'Authorization' : tokenForHeader}})
         .then(res => {
                 return true; 
             }) 
@@ -70,9 +80,9 @@ async function deleteTaskromBackend(taskID) {
  * @returns conctacts[]
  */
 async function getContactsFromBackend() {
-    const url = 'http://127.0.0.1:8000/contacts/';
+    const url = backendURL + '/contacts/';
 
-    const resp = await fetch(url)
+    const resp = await fetch(url , { method: 'GET' , headers: { 'Authorization' : tokenForHeader} } )
         .then(response => response.json())
         .then(res => {
             console.log("Contacts from Backend");
@@ -92,12 +102,12 @@ async function getContactsFromBackend() {
  */
 async function addContactToBackend(contact) {
 
-    const url = 'http://127.0.0.1:8000/contacts/';
+    const url = backendURL + '/contacts/';
 
     console.log("Contact for Backend");
     console.log(JSON.stringify(contact));
 
-    return await fetch(url, { method: 'POST', body: JSON.stringify(contact) })
+    return await fetch(url, { method: 'POST', headers: { 'Authorization' : tokenForHeader} , body: JSON.stringify(contact) })
         .then(res => res.json());
 }
 
@@ -108,9 +118,9 @@ async function addContactToBackend(contact) {
  */
 async function updateContactToBackend(contact) {
 
-    const url = 'http://127.0.0.1:8000/contacts/' + contact['id'] + "/";
+    const url = backendURL + '/contacts/' + contact['id'] + "/";
     return fetch(url, { method: 'PATCH',
-                        headers: {'Content-Type': 'application/json'} , 
+                        headers: {'Content-Type': 'application/json' , 'Authorization' : tokenForHeader} , 
                         body: JSON.stringify(contact) })
         .then(res => res.json());
 }
@@ -121,8 +131,8 @@ async function updateContactToBackend(contact) {
  */
 async function deleteContactFromBackend(contactID) {
 
-    const url = 'http://127.0.0.1:8000/contacts/' + contactID['id'] + "/";
-    await fetch(url, {method: 'DELETE'})
+    const url = backendURL + '/contacts/' + contactID['id'] + "/";
+    await fetch(url, {method: 'DELETE' , headers: { 'Authorization' : tokenForHeader} })
         .then(res => { 
                 return true; 
             }) 
@@ -139,7 +149,7 @@ async function deleteContactFromBackend(contactID) {
  */
 async function loginBackend(email, password) {
 
-    const url = 'http://127.0.0.1:8000/api-token-auth/'
+    const url = backendURL + '/api-token-auth/'
     requestData = {
         "email": email,
         "password": password
@@ -168,7 +178,7 @@ async function loginBackend(email, password) {
  */
 async function registerBackend(email, password, username) {
 
-    const url = 'http://127.0.0.1:8000/register/'
+    const url = backendURL + '/register/'
     requestData = {
         "email": email,
         "password": password, 
@@ -194,7 +204,7 @@ async function checkAuth() {
     const email = localStorage.getItem("email"); 
     if(token != null && token != ""){
 
-        const url = "http://127.0.0.1:8000/checkToken/";
+        const url = backendURL + "/checkToken/";
         requestData = {
             "email": email,
             "token" : token

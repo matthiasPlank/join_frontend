@@ -178,8 +178,7 @@ function changeSubtaskStatus(elementId, subtask, isChecked) {
   } else {
     findtask.subtaskStatus[position] = false;
   }
-
-  setBoardToRemoteStorage();
+  updateTasksToBackend(findtask); 
   updateHTML();
 }
 
