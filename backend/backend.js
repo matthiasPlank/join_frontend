@@ -21,6 +21,17 @@ async function getTasksFromBackend() {
         .then(response => response.json())
         .then(res => {
             if (res) {
+                
+                res.forEach(task => {
+                    let assignedContacts = []; 
+                    if(task.assigned.length > 0){
+                        task.assigned.forEach(async contactID => {
+                            assignedContacts.push(await getContactFromBackend(contactID)); 
+                        }); 
+                        task.assigned = assignedContacts ;  
+                    }
+                });
+                
                 return res;
             }
             throw `Could not find data.`;
@@ -35,6 +46,7 @@ async function getTasksFromBackend() {
  */
 async function setTasksToBackend(task) {
 
+    console.log(JSON.stringify(task)); 
     const url = backendURL + '/tasks/';
     return fetch(url, { method: 'POST',  headers: { 'Authorization' : tokenForHeader} , body: JSON.stringify(task) })
         .then(res => res.json());
@@ -47,6 +59,7 @@ async function setTasksToBackend(task) {
  */
 async function updateTasksToBackend(task) {
 
+    console.log(JSON.stringify(task)); 
     const url = backendURL + '/tasks/' + task['id'] + "/";
     return fetch(url, { method: 'PATCH',
                         headers: {'Content-Type': 'application/json' , 'Authorization' : tokenForHeader} , 
@@ -93,6 +106,30 @@ async function getContactsFromBackend() {
             throw `Could not find data.`;
         });
     return resp;
+}
+
+
+async function getContactFromBackend(contactID) {
+   
+    const url = backendURL + '/contacts/' + contactID + "/";
+    return fetch(url, { method: 'GET',
+                        headers: {'Content-Type': 'application/json' , 'Authorization' : tokenForHeader} , 
+                    })
+        .then(res => res.json());
+
+        /*
+    const resp = await fetch(url , { method: 'GET' , headers: { 'Authorization' : tokenForHeader} } )
+        .then(response => response.json())
+        .then(res => {
+            console.log("Contacts from Backend");
+            console.log(res)
+            if (res) {
+                return res;
+            }
+            throw `Could not find data.`;
+        });
+    return resp;
+    */
 }
 
 /**
