@@ -4,6 +4,7 @@ let backendURL = 'http://127.0.0.1:8000';
 
 
 let tokenForHeader  =  "Token " + localStorage.getItem('token') ;
+let contactList = []; 
 
 /* ********************** BEGINN TASKS **************************** */
 
@@ -13,30 +14,38 @@ let tokenForHeader  =  "Token " + localStorage.getItem('token') ;
  */
 async function getTasksFromBackend() {
 
+    if(contactList = []){
+        contactList = await getContactsFromBackend(); 
+    }
     const url = backendURL + '/tasks/';
     const resp = await fetch(url , 
                         { method: 'GET',
                         headers: { 'Authorization' : tokenForHeader}
                         })
         .then(response => response.json())
-        .then(res => {
+        .then( res => {
             if (res) {
                 
                 res.forEach(task => {
                     let assignedContacts = []; 
                     if(task.assigned.length > 0){
-                        task.assigned.forEach(async contactID => {
-                            assignedContacts.push(await getContactFromBackend(contactID)); 
+                        task.assigned.forEach(contactID => {
+                            let tmpContact = getContactFromContactList(contactID); 
+                            assignedContacts.push(tmpContact); 
                         }); 
                         task.assigned = assignedContacts ;  
                     }
                 });
-                
                 return res;
             }
             throw `Could not find data.`;
         });
     return resp;
+}
+
+function getContactFromContactList(contactID){
+
+    return contactList.find((contact) => contact.id == contactID);
 }
 
 /**
@@ -58,10 +67,10 @@ async function setTasksToBackend(task) {
  * @returns upadatedTask
  */
 async function updateTasksToBackend(task) {
-
     console.log(JSON.stringify(task)); 
+    
     const url = backendURL + '/tasks/' + task['id'] + "/";
-    return fetch(url, { method: 'PATCH',
+    return fetch(url, { method: 'PUT',
                         headers: {'Content-Type': 'application/json' , 'Authorization' : tokenForHeader} , 
                         body: JSON.stringify(task) })
         .then(res => res.json());
@@ -112,10 +121,14 @@ async function getContactsFromBackend() {
 async function getContactFromBackend(contactID) {
    
     const url = backendURL + '/contacts/' + contactID + "/";
-    return fetch(url, { method: 'GET',
+    fetch(url, { method: 'GET',
                         headers: {'Content-Type': 'application/json' , 'Authorization' : tokenForHeader} , 
                     })
-        .then(res => res.json());
+        .then(res => res.json())
+        .then( res => {
+            if (res) {
+                return res;
+        }});
 
         /*
     const resp = await fetch(url , { method: 'GET' , headers: { 'Authorization' : tokenForHeader} } )
@@ -154,7 +167,7 @@ async function addContactToBackend(contact) {
  * @returns updatedContact
  */
 async function updateContactToBackend(contact) {
-
+    
     const url = backendURL + '/contacts/' + contact['id'] + "/";
     return fetch(url, { method: 'PATCH',
                         headers: {'Content-Type': 'application/json' , 'Authorization' : tokenForHeader} , 
